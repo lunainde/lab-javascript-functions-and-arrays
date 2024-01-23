@@ -1,44 +1,192 @@
-// Iteration #1: Find the maximum
-function maxOfTwoNumbers() {}
+// Iteration #1: Find the maximum------------------------------
+//Implement the function maxOfTwoNumbers that takes two numbers as arguments and returns the bigger number.
+function maxOfTwoNumbers(number1, number2) {
+  if (number1 > number2) {                     //if #1>#2 retutn1 else2
+    return number1;
+  } else {
+    return number2;
+  }
+}
+//run with given arguments
+console.log(maxOfTwoNumbers(5, 10));
+console.log(maxOfTwoNumbers(20, 15));
 
 
+//================================================================
+// Iteration #2: Find longest word---------------------------------
+// Implement the function findLongestWord that takes as an argument an array of words and returns the longest one. If there are 2 with the same length, it should return the first occurrence.
 
-// Iteration #2: Find longest word
+function findLongestWord(wordsArray) {          //create new array w/parameters
+  
+  if (wordsArray.length === 0){                 // return null if called w/empty array
+    return null;
+  }
+
+  let longestWord = "";                         //declare where to save
+
+  for (let word of wordsArray){                 //iterate inside
+    if (word.length > longestWord.length) {     //longest
+      longestWord = word;                       //store word
+    }
+  }
+  return longestWord;                           //execute
+}
 const words = ['mystery', 'brother', 'aviator', 'crocodile', 'pearl', 'orchard', 'crackpot'];
 
-function findLongestWord() {}
+console.log(findLongestWord(words));            //print
+
+//SOURCE: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/length
+//SOURCE: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/length
+
+
+//======================================================================
+// Iteration #3: Calculate the sum-------------------------------------
+//Implement the function named sumNumbers that takes an array of numbers as an argument and returns the sum of all the numbers in the array.
+
+function sumNumbers(numbers) {           //create new array w/parameter
+  let sum = 0;                           //declare starting 0
+
+  for (let number of numbers) {          //for x of XXXX 
+    sum += number;                       //sum each i
+  }
+  return sum;                            //execute
+}
+const numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];  //given argument
+
+console.log(sumNumbers(numbers))         //run/print
 
 
 
-// Iteration #3: Calculate the sum
-const numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
 
-function sumNumbers() {}
+// Iteration #3.2 Bonus:--generic sum() function----------------------------
+//what if we want to calculate the sum of the length of words in an array? What if it also includes boolean values? 
+
+function sum(mixedArr) {                //function name(parameter)
+
+  let totalSum = 0;                     //store: inside function, before iteration ==> 0
+
+  for(let element of mixedArr){         //for ea. element of elements-array
+
+    if (typeof element === 'number'){   
+      totalSum += element;                     //if typeof ==> number, + number
+    } else if (typeof element === 'string'){   
+      totalSum += element.length;              //if typeof string, + characters
+    } else if (typeof element === 'boolean'){  
+      if (element === true ){                  //if typeof boolean, + 1 (for true)
+        totalSum += 1
+      }
+    } else {
+      throw new Error('Unsupported data type')  //else show 'Error'
+    }
+  }
+  return totalSum;                      //execute
+}
+//const (paramenter) ==> arguments given
+const mixedArr = [6, 12, 'miami', 1, true, 'barca', '200', 'lisboa', 8, 10]; 
+//should return: 57
+console.log(sum(mixedArr))        //given argument ==> run(function name(argument))
+
+//SOURCE: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof
 
 
 
-// Iteration #3.1 Bonus:
-function sum() {}
 
-
-
-// Iteration #4: Calculate the average
+//=====================================================================================
+// Iteration #4: Calculate the average--------------------------------------------------
+//1.Find the sum (1st exercise or reusing the function sumNumbers()?)
+//2.Divide that sum by the number of elements in the array.
 // Level 1: Array of numbers
-const numbersAvg = [2, 6, 9, 10, 7, 4, 1, 9];
 
-function averageNumbers() {}
+function averageNumbers(numbersAvg) {             //function-name(parameter)
+
+  let sum = 0;                                    //start at 0
+
+  for(let number of numbersAvg){                  //iterate ea. number of numbersArr
+    sum += number;                                //sum ea. index+1
+  }
+  if (numbersAvg.length === 0) {                  //if array empty ==> null
+    return null;
+  }
+  return sum/numbersAvg.length;                   //totalSum/qty of elements in Arr
+}
+
+const numbersAvg = [2, 6, 9, 10, 7, 4, 1, 9];     //UI argument given ==> (parameter)
+
+console.log(averageNumbers(numbersAvg))           //print(function-name(parameter))
 
 
-// Level 2: Array of strings
+//Iteration #4.2: Array of strings------------------------------------------------------
+//A function that receives as a single argument an array of words and returns the average length of the words:
+function averageWordLength(wordsArr) {
+
+  if (wordsArr.length === 0){
+    return null;
+  }
+  
+  let sum = 0;
+  
+  for (let word of wordsArr){
+    sum += word.length;
+  }
+  return sum/wordsArr.length;
+}
+
 const wordsArr = ['seat', 'correspond', 'linen', 'motif', 'hole', 'smell', 'smart', 'chaos', 'fuel', 'palace'];
+console.log(averageWordLength(wordsArr))
+ 
+// Bonus - Iteration #4.3-----------------------------------------------------------
+//A function that receives any mixed array and calculates the average, (numbers and/or strings and/or booleans as a mixed array).
 
-function averageWordLength() { }
+function avg(mixArr) {
+  if (mixArr.length === 0){
+    return null;
+  }
+  let sum = 0;                                  //start at 0
+  
+  for(let element of mixArr){                  //for ea. element of elements in Arr
+   
+  if (typeof element === 'number'){   
+    sum += element;                            //add up all elements
+  } else if (typeof element === 'string'){   
+    sum += element.length;                     //counts characters
+  } else if (typeof element === 'boolean'){    
+    if (element === true ){                    //true=1 & false=0
+      sum += 1
+    }
+  } else {
+    throw new Error('Unsupported data type')  //else show 'Error'
+  }
+  }
+  return sum/mixArr.length;                   //totalSum/qty of elements in Arr
+}                                             //end of function
+const mixArr = [6, 12, 'miami', 1, true, 'barca', '200', 'lisboa', 8, 10];
+// should return: 5.7
+console.log(avg(mixArr));
 
-// Bonus - Iteration #4.1
-function avg() {}
 
-// Iteration #5: Unique arrays
-const wordsUnique = [
+//=============================================================================
+// Iteration #5: Unique arrays-----------------------------------------------
+//Remove the duplicates, and return a new array. => methods: .indexOf and .includes
+
+
+function uniquifyArray(wordsUnique) {
+
+  if (wordsUnique.length === 0){
+    return null;                        //null if [] is empty
+  }
+
+  let uniqueWords = []                  //create a new array for results
+
+  for (let word of wordsUnique){        //iterate=> for ea. word of words
+    if (!uniqueWords.includes(word)){   //if array includes repaated, ignore
+        uniqueWords.push(word);         //push to new arr unique words
+    }
+  }
+  return uniqueWords;                   //execute newArray
+}
+
+const wordsUnique = [                   //arguments for the parameters
   'crab',
   'poison',
   'contagious',
@@ -51,19 +199,55 @@ const wordsUnique = [
   'simple',
   'bring'
 ];
+console.log(uniquifyArray(wordsUnique));  //run/print function outcome
+//outcome: new array w/o poison, bring, simple
 
-function uniquifyArray() {}
 
 
 
+//====================================================================================
 // Iteration #6: Find elements
+//Declare a function that takes in an array of words as one argument and a word to search for as the other. Return true if the word exists in the array; otherwise, return false.
+
+
+function doesWordExist(wordsArr2, wordsFind) {    //new array + word to find
+  
+  if (wordsArr2.length === 0){                    //if [] empty = 0
+    return null;
+  }
+  
+  for(let word of wordsArr2){                     //ea. word of array
+    if (word === wordsFind){                      //if found = true
+      return true
+    }
+  }
+  return false
+}
+
 const wordsFind = ['machine', 'subset', 'trouble', 'starting', 'matter', 'eating', 'truth', 'disobedience'];
+console.log(doesWordExist(wordsFind, 'machine'))
+console.log(doesWordExist(wordsFind, 'lula'))
 
-function doesWordExist() {}
 
 
 
+//===================================================================================
 // Iteration #7: Count repetition
+//Declare a function that takes in an array of words as the 1st-argument and 2nd-argument, a word to search. The function will return the number of times that word appears in the array.
+
+
+function howManyTimes(wordsCount, wordsToSearch) {
+
+  let count = 0;
+
+  for(let word of wordsCount){
+    if(word === wordsToSearch){
+      count++;
+    }
+  }
+  return count;
+}
+
 const wordsCount = [
   'machine',
   'matter',
@@ -78,11 +262,23 @@ const wordsCount = [
   'matter'
 ];
 
-function howManyTimes() {}
+console.log(howManyTimes(wordsCount, "matter"));
 
 
 
-// Iteration #8: Bonus
+//==============================PENDING=========================================
+// Iteration #8: Bonus: Product of adjacent numbers
+// Given multiple arrays, find the greatest product of four adjacent numbers.
+// We consider adjacent any four numbers that are next to each other horizontally or vertically. For example, if we have a 5x5 Matrix like:
+// [ 1,  2, 3, 4, 5]
+// [ 1, 20, 3, 4, 5]
+// [ 1, 20, 3, 4, 5]
+// [ 1, 20, 3, 4, 5]
+// [ 1,  4, 3, 4, 5]
+//The greatest product will be the 20x20x20x4 = 32000.
+
+
+
 const matrix = [
   [8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
   [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],
@@ -106,10 +302,16 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {}
+function greatestProduct(matrix) {
 
+  if (matrix.length === 0){                    //if [] empty = 0
+    return null;
+  }
 
+  for(let i of matrix){
 
+  }
+}
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
@@ -128,3 +330,30 @@ if (typeof module !== 'undefined') {
     greatestProduct
   };
 }
+
+
+
+// ================================RUN=========================================
+// https://replit.com/@lunainde/005-lab-javascript-functions-and-arrays
+
+// 10
+// 20
+// crocodile
+// 87
+// 57
+// 6
+// 5.3
+// 5.7
+// [
+//   'crab',
+//   'poison',
+//   'contagious',
+//   'simple',
+//   'bring',
+//   'sharp',
+//   'playground',
+//   'communion'
+// ]
+// true
+// false
+// 4 (4x 'matters')
